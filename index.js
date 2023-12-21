@@ -85,6 +85,25 @@ async function run() {
             res.send(result);
         })
 
+        app.put('/tasks/:id', async (req, res) => {
+            const id = req.params.id;
+            const data = req.body;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true }
+            const updatedTask = {
+                $set: {
+                    name: data.name,
+                    title: data.title,
+                    priority: data.priority,
+                    dadline: data.dadline,
+                    description: data.description,
+                    position: data.position,
+                }
+            }
+            const result = await taskCollection.updateOne(filter, updatedTask, options);
+            res.send(result);
+        })
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
