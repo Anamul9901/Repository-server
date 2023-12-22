@@ -78,7 +78,7 @@ async function run() {
             const filter = { _id: new ObjectId(id) };
             const updatedDoc = {
                 $set: {
-                    level: data.newLevel
+                    position: data.newPosition
                 }
             }
             const result = await taskCollection.updateOne(filter, updatedDoc);
